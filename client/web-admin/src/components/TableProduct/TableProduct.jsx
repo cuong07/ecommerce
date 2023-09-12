@@ -14,10 +14,14 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import StyledTableCell from "../StyledTableCell/StyledTableCell";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import ModalDetail from "../ModalDetail/ModalDetail";
 
 const TableProduct = ({ dataField, list }) => {
   const [data, setData] = useState(list?.data);
   const [sortBy, setSortBy] = useState(null);
+  const [rowData, setRowData] = useState(null);
+  const [isShowModalDetail, setIsShowModelDetail] = useState(false);
+
   const { imageUrl } = useSelector((state) => state.context);
 
   const handleSort = (field) => {
@@ -50,6 +54,15 @@ const TableProduct = ({ dataField, list }) => {
 
     setData(sortedData);
   };
+
+  const openModal = (row) => {
+    setIsShowModelDetail(true)
+    setRowData(row)
+  }
+
+  const closeModal = () => {
+    setIsShowModelDetail(false)
+  }
 
   useEffect(() => {
     setData(list?.data);
@@ -94,7 +107,8 @@ const TableProduct = ({ dataField, list }) => {
               imageSrc = imageUrl + listImage[1];
             }
             return (
-              <TableRow key={row.id} hover>
+              <>
+              <TableRow key={row.id} hover className="cursor-pointer" onClick={() => openModal(row)}>
                 <TableCell>{row.id}</TableCell>
                 {imageSrc && (
                   <TableCell>
@@ -111,7 +125,6 @@ const TableProduct = ({ dataField, list }) => {
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.description}</TableCell>
                 <TableCell>{parseInt(row.price)}</TableCell>
-
                 <TableCell>
                   {Math.abs(moment(row.createdAt).diff(moment(), "days"))} days
                   ago
@@ -128,10 +141,12 @@ const TableProduct = ({ dataField, list }) => {
                 </TableCell>
                 <TableCell>{row.Discount ? row.Discount.name : ""}</TableCell>
               </TableRow>
+              </>
             );
           })}
         </TableBody>
       </Table>
+      <ModalDetail isShow={isShowModalDetail} handleClose={closeModal} row={rowData}/>
     </TableContainer>
   );
 };
