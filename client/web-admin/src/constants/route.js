@@ -1,8 +1,9 @@
 const route = {
   PUBLIC: "",
-  HOME: "/",
   LOGIN: "/login",
   SIGNUP: "/signup",
-  PRODUCT:"/product"
+  PRODUCT:"/product",
+  PRODUCT_DETAIL: "product/:id",
+  NOTFOUND: "*"
 };
 export default route;

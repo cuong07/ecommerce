@@ -27,7 +27,7 @@ const Header = () => {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div className="h-[80px] flex justify-between pl-8 pr-8 items-center shadow-md">
+    <div className="h-[80px] flex justify-between pl-8 pr-8 items-center shadow-md z-40">
       <div>
         <span className="text-3xl font-bold">Admin</span>
       </div>

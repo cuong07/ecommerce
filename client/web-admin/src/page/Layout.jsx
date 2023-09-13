@@ -3,19 +3,19 @@ import { Footer, Header, Navigate } from "../common";
 
 const Layout = ({ children, hiddenHeader, hiddenFooter, hiddenNavigate }) => {
   return (
-    <>
+    <div className="relative">
       {!hiddenHeader && (
-        <div>
+        <div className="">
           <Header />
         </div>
       )}
-      <div className="flex">
+      <div className="flex overflow-hidden">
         {!hiddenNavigate && (
-          <div>
+          <div className="shadow-lg">
             <Navigate />
           </div>
         )}
-        <div className="flex-1 border-blue-200 border">{children}</div>
+        {children}
       </div>
 
       {!hiddenFooter && (
@@ -23,7 +23,7 @@ const Layout = ({ children, hiddenHeader, hiddenFooter, hiddenNavigate }) => {
           <Footer />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
