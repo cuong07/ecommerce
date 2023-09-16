@@ -11,7 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { authSlice, productSlice } from "../slice";
+import { authSlice, categorySlice, productSlice } from "../slice";
 import contextData from "../slice/context";
 
 const persistConfig = {
@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
   auth: authSlice.reducer,
   product: productSlice.reducer,
   context: contextData.reducer,
+  category: categorySlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -17,7 +17,7 @@ export const getListProducts = async (token, dispatch, page = 0, size = 0) => {
 
 export const loadMoreProduct = async (token, dispatch, page = 0, size = 0) => {
   dispatch(productSliceAction.getProductStart());
-  dispatch(productSliceAction.updatePage(1))
+  dispatch(productSliceAction.updatePage(1));
   try {
     const res = await ApiRequest.get(`/product?page=${page}&size=${size}`, {
       headers: {
@@ -29,3 +29,18 @@ export const loadMoreProduct = async (token, dispatch, page = 0, size = 0) => {
     dispatch(productSliceAction.getProductError());
   }
 };
+
+export const getProductById = async (token, dispatch, id) => {
+  dispatch(productSliceAction.getProductStart());
+  try {
+    const res = await ApiRequest.get(`/product/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch(productSliceAction.getProductDetail(res));
+  } catch (error) {
+    dispatch(productSliceAction.getProductError());
+  }
+};
+

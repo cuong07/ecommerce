@@ -5,7 +5,7 @@ import Product from "./Product";
 
 const Index = (props) => {
   return (
-    <Layout>
+    <Layout >
       <Product />
     </Layout>
   );

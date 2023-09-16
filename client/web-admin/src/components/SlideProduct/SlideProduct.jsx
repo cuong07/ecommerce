@@ -12,7 +12,7 @@ import { Autoplay, EffectCreative } from "swiper/modules";
 import { Box, Typography } from "@mui/material";
 
 const SlideProduct = ({ listImage, id, name, category }) => {
-  const arrayImage = JSON.parse(listImage);
+  let arrayImage = JSON.parse(listImage);
   const { imageUrl } = useSelector((state) => state.context);
 
   const progressCircle = useRef(null);
@@ -46,7 +46,7 @@ const SlideProduct = ({ listImage, id, name, category }) => {
           className="w-full h-[200px] shadow-lg"
           onAutoplayTimeLeft={onAutoplayTimeLeft}
         >
-          {arrayImage.map((item) => {
+          {arrayImage?.map((item) => {
             return (
               <SwiperSlide key={item}>
                 <img

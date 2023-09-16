@@ -5,24 +5,18 @@ const Layout = ({ children, hiddenHeader, hiddenFooter, hiddenNavigate }) => {
   return (
     <div className="relative">
       {!hiddenHeader && (
-        <div className="">
+        <div className="w-screen bg-white fixed">
           <Header />
         </div>
       )}
-      <div className="flex overflow-hidden">
+      <div className="flex overflow-hidden min-h-screen pt-20">
         {!hiddenNavigate && (
-          <div className="shadow-lg">
+          <div className="shadow-lg w-[200px] min-h-screend">
             <Navigate />
           </div>
         )}
-        {children}
+        <div className="flex-1"> {children}</div>
       </div>
-
-      {!hiddenFooter && (
-        <div>
-          <Footer />
-        </div>
-      )}
     </div>
   );
 };

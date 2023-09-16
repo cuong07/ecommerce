@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ListItemLink = ({ icon, primary, to }) => {
   return (

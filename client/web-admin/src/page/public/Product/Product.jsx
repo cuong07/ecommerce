@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
+  Box,
+  Button,
   Pagination,
   PaginationItem,
   TablePagination,
@@ -8,20 +10,20 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { ModalDetail, TableProduct } from "../../../components";
-import * as apis from "../../../api/product";
+import * as apis from "../../../api";
 import { useDispatch, useSelector } from "react-redux";
-import { dataProductField } from "../../../constants/dataProductField";
+import { dataProductField } from "../../../constants/dataField";
+import DrawerRight from "../../../components/DrawerRight/DrawerRight";
+import { Link } from "react-router-dom";
 
 const Product = (props) => {
   const dispatch = useDispatch();
 
   const [rowData, setRowData] = useState(null);
   const [isShowModalDetail, setIsShowModelDetail] = useState(false);
-
   const openModal = (row) => {
-    setIsShowModelDetail(!isShowModalDetail);
+    setIsShowModelDetail(true);
     setRowData(row);
-    setIsShowModelDetail(!isShowModalDetail);
   };
 
   const closeModal = () => {
@@ -35,24 +37,33 @@ const Product = (props) => {
 
   useEffect(() => {
     apis.getListProducts(token, dispatch, page, size);
+    apis.getCategory(dispatch);
   }, [token, page]);
 
   const handleChangePage = (e, page) => {
     apis.loadMoreProduct(token, dispatch, page, size);
   };
 
+  const handleGetProductDetail = (id) => {
+    apis.getProductById(token, dispatch, id);
+  };
+
   return (
-    <div className="p-8 flex-1 bg-[#f8f9f9]">
-      <div >
+    <div className="p-8 flex-1 bg-[#f8f9f9] overflow-hidden">
+      <div>
         <div>
-          <Typography
-            component="span"
+          <Box
+            component={Link}
             sx={{
               fontSize: 12,
+              color: "black",
+              padding: 0,
+              margin: 0,
             }}
+            to="/"
           >
             Dashboard
-          </Typography>
+          </Box>
           <NavigateNextIcon
             sx={{
               width: 18,
@@ -69,18 +80,16 @@ const Product = (props) => {
             Products
           </Typography>
         </div>
-        <div>
-          <Typography
-            sx={{
-              fontSize: 32,
-              lineHeight: "40px",
-              fontWeight: 400,
-            }}
-          >
-            Products
-          </Typography>
-        </div>
-        <div className="relative">
+        <Typography
+          sx={{
+            fontSize: 32,
+            lineHeight: "40px",
+            fontWeight: 400,
+          }}
+        >
+          Products
+        </Typography>
+        <div className="relative mt-5">
           <TableProduct
             dataField={dataProductField}
             list={list}
@@ -100,6 +109,7 @@ const Product = (props) => {
         isShow={isShowModalDetail}
         handleClose={closeModal}
         row={rowData}
+        handleGetProductDetail={handleGetProductDetail}
       />
     </div>
   );

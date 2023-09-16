@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const filter = {
   page: 1,
-  size: 3,
+  size: 10,
 };
 
 const initialState = {
@@ -10,6 +10,9 @@ const initialState = {
   filter: { ...filter },
   error: false,
   pageNumber: 1,
+  productDetail: {},
+  updateProduct: {},
+  newProduct: {},
 };
 
 const productSlice = createSlice({
@@ -30,6 +33,10 @@ const productSlice = createSlice({
     },
     updatePage: (state, action) => {
       state.pageNumber += action.payload;
+    },
+    getProductDetail: (state, action) => {
+      state.isFetching = false;
+      state.productDetail = action.payload.data;
     },
   },
 });
