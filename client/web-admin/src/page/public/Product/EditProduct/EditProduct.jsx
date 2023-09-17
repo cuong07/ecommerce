@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Typography } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -13,10 +13,22 @@ const EditProduct = (props) => {
   let { id } = useParams();
 
   const { productDetail } = useSelector((state) => state.product);
+  const { category } = useSelector((state) => state.category);
+  const { discountList } = useSelector((state) => state.discount);
 
-  console.log(id);
+  const [categorySelect, setCategorySelect] = useState('');
+  const [discountSelect, setDiscountSelect] = useState('');
+
+  const handleChangeCategory = (e) => {
+    setCategorySelect(e.target.value);
+  };
+
+  const handleChangeDiscount = (e) => {
+    setDiscountSelect(e.target.value);
+  };
+
   return (
-    <Box component="div" className="p-8 bg-[#f8f9f9]">
+    <Box component="div" className="p-8 bg-[#f8f9f9] flex flex-col gap-4">
       <Box component="div" className="">
         <Box
           component={Link}
@@ -62,7 +74,7 @@ const EditProduct = (props) => {
           Edit
         </Typography>
       </Box>
-      <Box component="div" className="flex justify-between mt-5">
+      <Box component="div" className="flex justify-between">
         <Typography
           sx={{
             fontSize: 32,
@@ -101,8 +113,16 @@ const EditProduct = (props) => {
           </Box>
         </Box>
       </Box>
-      <Box>
-        <EditForm product={productDetail?.data} />
+      <Box component="div" >
+        <EditForm
+          product={productDetail?.data}
+          category={category?.data}
+          discount={discountList?.data}
+          handleChangeCategory={handleChangeCategory}
+          categoryValue={categorySelect}
+          discountValue={discountSelect}
+          handleChangeDiscount={handleChangeDiscount}
+        />
       </Box>
     </Box>
   );

@@ -38,6 +38,7 @@ const Product = (props) => {
   useEffect(() => {
     apis.getListProducts(token, dispatch, page, size);
     apis.getCategory(dispatch);
+    apis.getDiscount(dispatch);
   }, [token, page]);
 
   const handleChangePage = (e, page) => {
@@ -51,7 +52,7 @@ const Product = (props) => {
   return (
     <div className="p-8 flex-1 bg-[#f8f9f9] overflow-hidden">
       <div>
-        <div>
+        <div>   
           <Box
             component={Link}
             sx={{
