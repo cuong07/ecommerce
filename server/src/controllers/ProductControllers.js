@@ -269,6 +269,11 @@ exports.updateImageProduct = async (req, res) => {
       }
     );
 
+    cloudinary
+      .deleteImage(imageId)
+      .then((response) => console.log("Delete image success: " + response))
+      .catch((err) => console.log(err));
+
     if (data[0] === 1) {
       res.status(200).json({
         message: "Updated successfully",
