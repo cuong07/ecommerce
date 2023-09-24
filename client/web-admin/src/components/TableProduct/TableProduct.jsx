@@ -117,8 +117,14 @@ const TableProduct = ({ dataField, list, openModal, closeModal }) => {
                       />
                     </TableCell>
                   )}
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.description}</TableCell>
+                  <TableCell>  {row.name && row.name.length > 25
+                      ? `${row.name.substring(0, 25)}...`
+                      : row.name}</TableCell>
+                  <TableCell>
+                    {row.description && row.description.length > 50
+                      ? `${row.description.substring(0, 50)}...`
+                      : row.description}
+                  </TableCell>
                   <TableCell>{parseInt(row.price)}</TableCell>
                   <TableCell>
                     {Math.abs(moment(row.createdAt).diff(moment(), "days"))}{" "}

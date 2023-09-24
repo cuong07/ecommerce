@@ -13,7 +13,7 @@ const ModalDetail = ({ isShow, handleClose, row, handleGetProductDetail }) => {
   return (
     <>
       {isShow && (
-        <div className="right-0 top-0 fixed w-[30vw] h-[100vh] border z-50 flex flex-col gap-6 bg-white border-blue-300 animate-slide-left px-8 py-12 ">
+        <div className="right-0 top-0 fixed w-[30vw] h-[100vh] border z-50 flex flex-col gap-6 bg-white shadow-lg animate-slide-left px-8 py-12 ">
           <div className="flex gap-4 items-center">
             <motion.button
               whileHover={{

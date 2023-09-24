@@ -9,30 +9,37 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDispatch, useSelector } from "react-redux";
 import EditForm from "../../../../components/EditForm/EditForm";
 import * as apis from "../../../../api";
-
 const EditProduct = (props) => {
   let { id } = useParams();
   const dispatch = useDispatch();
-
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(null);
 
   const { token } = useSelector((state) => state.auth.login.currentUser.data);
   const { productDetail, isFetching } = useSelector((state) => state.product);
   const { category } = useSelector((state) => state.category);
   const { discountList } = useSelector((state) => state.discount);
+  useEffect(() => {
+    const fetchData = async () => {
+      await apis.getProductById(token, dispatch, id);
+      await apis.getCategory(dispatch)
+      await apis.getDiscount(dispatch)
+    };
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    setProduct(productDetail);
+  }, [productDetail]);
 
   const handleSubmitEdit = (product) => {
+    console.log(product);
     apis.updateProduct(token, dispatch, product);
   };
 
   const handleUpdateImage = (data) => {
     apis.updateImageProduct(token, dispatch, data);
   };
-  console.log(productDetail);
 
-  useEffect(() => {
-    setProduct(productDetail);
-  }, [productDetail]);
   return (
     <>
       <Box component="div" className="p-8 bg-[#f8f9f9] flex flex-col gap-4">
@@ -112,7 +119,7 @@ const EditProduct = (props) => {
                   transition: { duration: 0.4 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="py-1 px-8 border border-red-500 text-red-500 rounded-md flex items-center gap-1"
+                className="py-1 px-8 border border-red-500 text-red-500 rounded-md flex items-center gap-1  "
               >
                 <DeleteForeverIcon />
                 <span>delete</span>
@@ -123,10 +130,10 @@ const EditProduct = (props) => {
         <Box component="div">
           <EditForm
             productId={id}
-            product={product.data}
+            product={product}
             category={category?.data}
             discount={discountList?.data}
-            handleSubmitEdit={handleSubmitEdit}
+            onSubmit={handleSubmitEdit}
             handleUpdateImage={handleUpdateImage}
           />
         </Box>

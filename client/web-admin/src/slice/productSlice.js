@@ -10,7 +10,7 @@ const initialState = {
   filter: { ...filter },
   error: false,
   pageNumber: 1,
-  productDetail: {},
+  productDetail: null,
   updateProduct: {},
   newProduct: {},
 };
@@ -40,7 +40,7 @@ const productSlice = createSlice({
     },
     updateProductSuccess: (state) => {
       state.isFetching = false;
-    }
+    },
   },
 });
 
