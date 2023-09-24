@@ -70,7 +70,7 @@ exports.getDiscount = async (req, res) => {
     res.status(200).json({
       message: "get Discount",
       success: true,
-      data: { ...rows },
+      data: [ ...rows ],
       totalCount: count,
     });
   } catch (error) {

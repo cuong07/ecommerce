@@ -13,7 +13,7 @@ router.post(
 router.put(
   "/product",
   auth.verifyTokenAndAdminAuth,
-  upload.array("image"),
+  upload.array("image[]"),
   ProductControllers.updateProduct
 );
 router.put(

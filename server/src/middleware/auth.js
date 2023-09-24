@@ -26,6 +26,7 @@ const verifyToken = async (req, res, next) => {
 
 const verifyTokenAndAdminAuth = async (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(authorization);
   try {
     if (authorization) {
       const accessToken = authorization.split(" ")[1];

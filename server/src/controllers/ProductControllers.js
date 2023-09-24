@@ -59,7 +59,7 @@ exports.updateProduct = async (req, res) => {
     name,
     description,
     price,
-    catogoryId,
+    categoryId,
     inventoryId,
     discountId,
     productId,
@@ -95,10 +95,9 @@ exports.updateProduct = async (req, res) => {
         description: description,
         price: price,
         image: productData.image,
-        ProductCategoryId: catogoryId,
+        ProductCategoryId: categoryId,
         ProductInventoryId: inventoryId,
         DiscountId: discountId,
-        ...product,
       },
       {
         where: {
@@ -106,7 +105,6 @@ exports.updateProduct = async (req, res) => {
         },
       }
     );
-    console.log(data);
 
     if (data[0] === 1) {
       res.status(200).json({
