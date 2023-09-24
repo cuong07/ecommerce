@@ -28,30 +28,37 @@ const schema = yup.object().shape({
   name: yup.string().required("Please enter a name."),
   description: yup.string().required("Please enter a description"),
   price: yup.number().required("Please enter a number"),
+  image: yup.mixed(),
 });
 
 const EditForm = ({
   product,
   category,
-  handleChangeCategory,
-  handleChangeDiscount,
-  categoryValue,
-  discountValue,
   discount,
+  productId,
+  handleSubmitEdit,
+  handleUpdateImage,
 }) => {
-  console.log(discount);
   const [files, setFiles] = useState(null);
   const [listImageUpload, setListImageUpload] = useState([]);
+  const [categorySelect, setCategorySelect] = useState("");
+  const [discountSelect, setDiscountSelect] = useState("");
   const {
     control,
     handleSubmit,
     getValues,
     formState: { errors },
+    setValue,
+    reset,
   } = useForm({
     defaultValues: {
-      name: product.name,
-      description: product.description,
-      price: product.price,
+      name: product?.name,
+      description: product?.description,
+      price: product?.price,
+      productId: productId,
+      categoryId: product?.ProductCategory?.id || "",
+      discountId: product?.Discount?.id || "",
+      image: null,
     },
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
@@ -60,26 +67,36 @@ const EditForm = ({
 
   const fileTypes = ["JPG", "PNG", "GIF"];
   const { imageUrl } = useSelector((state) => state.context);
+  let imageList;
 
-  const imageList = JSON.parse(product?.image);
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    if (product?.image) {
+      try {
+        imageList = JSON.parse(product.image);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    }
+  }, [product]);
+  
+
+  const handleImageUpload = (files) => {
+    setFiles(files);
+    setValue("image", files);
   };
 
-  const handleDeleteImage = (data) => {
-    console.log(data);
-  };
-  const handleChange = (file) => {
-    setFiles(file);
+  const deleteImage = (imageId) => {
+    handleUpdateImage({
+      productId,
+      imageId,
+    });
   };
 
   useEffect(() => {
     const promises = [];
-
     for (let i = 0; i < files?.length; i++) {
       let file = files[i];
       const reader = new FileReader();
-
       const promise = new Promise((resolve) => {
         reader.onload = function (event) {
           const base64Image = event.target.result;
@@ -87,19 +104,35 @@ const EditForm = ({
         };
         reader.readAsDataURL(file);
       });
-
       promises.push(promise);
     }
-
     Promise.all(promises).then((base64Images) => {
-      // Once all promises are resolved, update the listImageUpload state
       setListImageUpload(base64Images);
     });
   }, [files]);
 
+  useEffect(() => {
+    reset({
+      ...getValues(),
+      categoryId: categorySelect,
+      discountId: discountSelect,
+    });
+  }, [categorySelect, discountSelect]);
+
+  const handleChangeCategory = (e) => {
+    setCategorySelect(e.target.value);
+  };
+
+  const handleChangeDiscount = (e) => {
+    setDiscountSelect(e.target.value);
+  };
+
   return (
     <Box component="div" className="bg-white p-4 shadow-lg rounded-lg">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(handleSubmitEdit)}
+        className="flex flex-col gap-4"
+      >
         <Controller
           name="name"
           control={control}
@@ -134,7 +167,8 @@ const EditForm = ({
             <SelectFied
               data={category}
               handleChange={handleChangeCategory}
-              value={categoryValue}
+              defaultValue={product?.ProductCategory?.id}
+              value={categorySelect}
               label="Category"
             />
           </Box>
@@ -143,7 +177,8 @@ const EditForm = ({
           <SelectFied
             data={discount}
             handleChange={handleChangeDiscount}
-            value={discountValue}
+            defaultValue={product?.Discount?.id}
+            value={discountSelect}
             label="Discount"
           />
         </Box>
@@ -178,56 +213,69 @@ const EditForm = ({
             id="input-file"
             rowHeight={200}
           >
-            {imageList.map((item) => (
-              <Box component="div" key={item} className="relative group">
-                <ImageListItem
-                  key={item.img}
-                  className=" border-[#ccc] border rounded-md  hover:cursor-pointer"
-                >
-                  <img
-                    src={imageUrl + item}
-                    alt={item}
-                    loading="lazy"
-                    className="p-2 duration-200"
-                  />
-                </ImageListItem>
-                <Box
-                  component="span"
-                  className="hover:bg-[#fafafa] flex items-center justify-center absolute top-0 right-0 opacity-0 transition-opacity group-hover:opacity-100 bg-white border border-black rounded-full m-2 cursor-pointer"
-                  onClick={() => handleDeleteImage(item)}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            {imageList &&
+              imageList?.map((item) => (
+                <Box component="div" key={item} className="relative group">
+                  <ImageListItem
+                    key={item.img}
+                    className=" border-[#ccc] border rounded-md  hover:cursor-pointer"
                   >
-                    <CloseIcon fontSize="medium" className="p-0 m-0" />
-                  </motion.div>
+                    <img
+                      src={imageUrl + item}
+                      alt={item}
+                      loading="lazy"
+                      className="p-2 duration-200"
+                    />
+                  </ImageListItem>
+                  <Box
+                    component="span"
+                    className="hover:bg-[#fafafa] flex items-center justify-center absolute top-0 right-0 opacity-0 transition-opacity group-hover:opacity-100 bg-white border border-black rounded-full m-2 cursor-pointer"
+                    onClick={() => deleteImage(item)}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
+                    >
+                      <CloseIcon fontSize="medium" className="p-0 m-0" />
+                    </motion.div>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
           </ImageList>
         </Box>
-        <Box className="flex flex-col gap-4">
-          <Box>
-            <InputLabel id="input-uploader">Upload image</InputLabel>
-            <FileUploader
-              labelId="input-uploader"
-              handleChange={handleChange}
-              name="files"
-              multiple={true}
-              types={fileTypes}
-              classes="h-20"
-              label="Upload Files"
-            />
-          </Box>
-          <ImageList cols={8} rowHeight={164} gap={16}>
-            {listImageUpload.map((item, index) => (
-              <ImageListItem key={index}>
-                <img src={item} alt={`Image ${index}`} />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Box>
+
+        <Controller
+          className="flex flex-col gap-4"
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <Box>
+              <InputLabel id="input-uploader">Upload image</InputLabel>
+              <FileUploader
+                labelId="input-uploader"
+                handleChange={handleImageUpload}
+                name="image"
+                multiple={true}
+                types={fileTypes}
+                className="h-20"
+                label="Upload Files"
+                {...field}
+              />
+            </Box>
+          )}
+        />
+
+        <ImageList cols={8} rowHeight={164} gap={16}>
+          {listImageUpload.map((item, index) => (
+            <ImageListItem key={index}>
+              <img src={item} alt={`Image ${index}`} />
+            </ImageListItem>
+          ))}
+        </ImageList>
 
         <Button
           variant="outlined"

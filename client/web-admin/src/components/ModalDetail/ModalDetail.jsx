@@ -10,7 +10,6 @@ import { Grid } from "ag-grid-community";
 import moment from "moment";
 
 const ModalDetail = ({ isShow, handleClose, row, handleGetProductDetail }) => {
-  console.log(row);
   return (
     <>
       {isShow && (

@@ -9,13 +9,13 @@ const Layout = ({ children, hiddenHeader, hiddenFooter, hiddenNavigate }) => {
           <Header />
         </div>
       )}
-      <div className="flex overflow-hidden min-h-screen pt-20 ">
+      <div className={`flex overflow-hidden min-h-screen ${!hiddenHeader ? "pt-20": ""} `}>
         {!hiddenNavigate && (
           <div className="shadow-lg w-[200px] min-h-screen fixed bg-white z-40 left-0 overflow-auto">
             <Navigate />
           </div>
         )}
-        <div className="flex-1 ml-[200px] overflow-auto"> {children}</div>
+        <div className={`flex-1 overflow-auto ${!hiddenNavigate ? "ml-[200px]": ""} `}> {children}</div>
       </div>
     </div>
   );

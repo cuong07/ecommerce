@@ -55,7 +55,7 @@ const TableProduct = ({ dataField, list, openModal, closeModal }) => {
   };
 
   useEffect(() => {
-    setData(list?.data);
+    setData(list);
   }, [list]);
 
   return (
@@ -147,7 +147,6 @@ const TableProduct = ({ dataField, list, openModal, closeModal }) => {
 
 TableProduct.propTypes = {
   dataField: PropTypes.array.isRequired,
-  list: PropTypes.object.isRequired,
 };
 
 export default TableProduct;

@@ -44,3 +44,43 @@ export const getProductById = async (token, dispatch, id) => {
   }
 };
 
+export const updateProduct = async (token, dispatch, product) => {
+  dispatch(productSliceAction.getProductStart());
+  try {
+    await ApiRequest.put("/product", product, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const res = await ApiRequest.get(`/product/${product.productId}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch(productSliceAction.updateProductSuccess());
+    dispatch(productSliceAction.getProductDetail(res));
+  } catch (error) {
+    dispatch(productSliceAction.getProductError());
+  }
+};
+
+export const updateImageProduct = async (token, dispatch, data) => {
+  dispatch(productSliceAction.getProductStart());
+  try {
+    await ApiRequest.put("/product/update-image", data, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const res = await ApiRequest.get(`/product/${data.productId}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch(productSliceAction.updateProductSuccess());
+    dispatch(productSliceAction.getProductDetail(res));
+  } catch (error) {
+    dispatch(productSliceAction.getProductError());
+  }
+};

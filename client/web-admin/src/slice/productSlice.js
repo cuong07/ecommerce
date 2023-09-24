@@ -38,6 +38,9 @@ const productSlice = createSlice({
       state.isFetching = false;
       state.productDetail = action.payload.data;
     },
+    updateProductSuccess: (state) => {
+      state.isFetching = false;
+    }
   },
 });
 

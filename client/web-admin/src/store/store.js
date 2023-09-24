@@ -15,22 +15,20 @@ import { authSlice, categorySlice, productSlice } from "../slice";
 import contextData from "../slice/context";
 import discountSlice from "../slice/discountSlice";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
+const authPersistConfig = {
+  key: "auth",
   storage,
 };
-const rootReducer = combineReducers({
-  auth: authSlice.reducer,
-  product: productSlice.reducer,
-  context: contextData.reducer,
-  category: categorySlice.reducer,
-  discount: discountSlice.reducer
-});
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedAuthReducer = persistReducer(authPersistConfig, authSlice.reducer);
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    auth: persistedAuthReducer,
+    product: productSlice.reducer,
+    context: contextData.reducer,
+    category: categorySlice.reducer,
+    discount: discountSlice.reducer
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
@@ -41,3 +39,4 @@ const store = configureStore({
 });
 export let persistor = persistStore(store);
 export default store;
+
