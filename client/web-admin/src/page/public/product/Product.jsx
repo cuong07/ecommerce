@@ -3,7 +3,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Pagination, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -14,7 +14,7 @@ import route from "../../../constants/route";
 
 const Product = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [rowData, setRowData] = useState(null);
   const [isShowModalDetail, setIsShowModelDetail] = useState(false);
 
@@ -34,6 +34,7 @@ const Product = () => {
 
   const handleGetProductDetail = (id) => {
     apis.getProductById(token, dispatch, id);
+    navigate(`/product/${id}`);
   };
 
   useEffect(() => {
@@ -141,7 +142,7 @@ const Product = () => {
         isShow={isShowModalDetail}
         handleClose={closeModal}
         row={rowData}
-        handleGetProductDetail={handleGetProductDetail}
+        handleGetDetail={handleGetProductDetail}
       />
     </div>
   );

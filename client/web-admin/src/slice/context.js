@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  imageUrl: "https://res.cloudinary.com/dh4wwxi3i/image/upload/v1693495595/",
+  imageUrl: 'https://res.cloudinary.com/dh4wwxi3i/image/upload/v1693495595/',
 };
 const contextData = createSlice({
-  name: "contextData",
+  name: 'contextData',
   initialState,
   reducers: {
     updateContext: (state, action) => {

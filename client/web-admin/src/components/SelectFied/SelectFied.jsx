@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React from 'react';
+import {
+  FormControl, InputLabel, MenuItem, Select,
+} from '@mui/material';
 
-const CategorySelect = ({
+function CategorySelect({
   data,
   handleChange,
   value,
   label,
   defaultValue,
-  defaultOpen,
-}) => {
+}) {
   return (
     <FormControl fullWidth>
       <InputLabel id="select-label">{label}</InputLabel>
@@ -20,22 +20,18 @@ const CategorySelect = ({
         label={label}
         onChange={handleChange}
       >
-        {data?.map((item) => {
-          return (
-            <MenuItem
-              key={item.id}
-              value={item.id}
-              disabled={defaultValue?.id === item.id ? true : false}
-            >
-              {item?.name}
-            </MenuItem>
-          );
-        })}
+        {data?.map((item) => (
+          <MenuItem
+            key={item.id}
+            value={item.id}
+            disabled={defaultValue?.id === item.id}
+          >
+            {item?.name}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
-};
-
-CategorySelect.propTypes = {};
+}
 
 export default CategorySelect;

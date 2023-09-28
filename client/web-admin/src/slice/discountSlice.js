@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isFetching: false,
@@ -7,8 +7,8 @@ const initialState = {
 };
 
 const discountSlice = createSlice({
-  name: "discount",
-  initialState: initialState,
+  name: 'discount',
+  initialState,
   reducers: {
     getDiscountStart: (state) => {
       state.isFetching = true;

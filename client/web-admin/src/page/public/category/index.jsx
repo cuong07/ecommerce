@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from '../../Layout';
-import Signup from './Signup';
+import Category from './Category';
 
 const index = () => (
-  <Layout hiddenHeader hiddenFooter>
-    <Signup />
+  <Layout hiddenFooter>
+    <Category />
   </Layout>
 );
 

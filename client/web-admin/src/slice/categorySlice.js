@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   category: {},
@@ -9,8 +9,8 @@ const initialState = {
 };
 
 const categorySlice = createSlice({
-  name: "category",
-  initialState: initialState,
+  name: 'category',
+  initialState,
   reducers: {
     getCategoryStart: (state) => {
       state.isFetching = true;

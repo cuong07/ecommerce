@@ -1,16 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Layout from "../../Layout";
-import Product from "./Product";
+import React from 'react';
+import Layout from '../../Layout';
+import Product from './Product';
 
-const Index = (props) => {
+function Index() {
   return (
-    <Layout >
+    <Layout>
       <Product />
     </Layout>
   );
-};
-
-Index.propTypes = {};
+}
 
 export default Index;

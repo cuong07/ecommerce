@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Box, Button, Typography } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import TvIcon from "@mui/icons-material/Tv";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useDispatch, useSelector } from "react-redux";
-import EditForm from "../../../../components/EditForm/EditForm";
-import * as apis from "../../../../api";
-const EditProduct = (props) => {
-  let { id } = useParams();
+import React, { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { Link, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import TvIcon from '@mui/icons-material/Tv';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useDispatch, useSelector } from 'react-redux';
+import EditForm from '../../../../components/EditForm/EditForm';
+import * as apis from '../../../../api';
+
+function EditProduct() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const [product, setProduct] = useState(null);
 
@@ -31,9 +31,8 @@ const EditProduct = (props) => {
     setProduct(productDetail);
   }, [productDetail]);
 
-  const handleSubmitEdit = (product) => {
-    console.log(product);
-    apis.updateProduct(token, dispatch, product);
+  const handleSubmitEdit = (_product) => {
+    apis.updateProduct(token, dispatch, _product);
   };
 
   const handleUpdateImage = (data) => {
@@ -62,7 +61,7 @@ const EditProduct = (props) => {
             className="text-[#898A9A] m-0 p-0 text-sm"
             to="/product"
           >
-            {" "}
+            {' '}
             Products
           </Box>
           <NavigateNextIcon
@@ -71,11 +70,8 @@ const EditProduct = (props) => {
               height: 18,
             }}
           />
-          <Typography
-              className="text-black m-0 p-0 text-sm"
-            component="span"
-          >
-            {" "}
+          <Typography className="text-black m-0 p-0 text-sm" component="span">
+            {' '}
             Edit
           </Typography>
         </Box>
@@ -83,7 +79,7 @@ const EditProduct = (props) => {
           <Typography
             sx={{
               fontSize: 32,
-              lineHeight: "40px",
+              lineHeight: '40px',
               fontWeight: 400,
             }}
           >
@@ -132,8 +128,6 @@ const EditProduct = (props) => {
       {isFetching && <Box>loadding</Box>}
     </>
   );
-};
-
-EditProduct.propTypes = {};
+}
 
 export default EditProduct;

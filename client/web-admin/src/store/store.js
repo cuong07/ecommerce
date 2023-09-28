@@ -1,22 +1,16 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import { authSlice, categorySlice, productSlice } from "../slice";
-import contextData from "../slice/context";
-import discountSlice from "../slice/discountSlice";
+import { authSlice, categorySlice, productSlice } from '../slice';
+import contextData from '../slice/context';
+import discountSlice from '../slice/discountSlice';
 
 const authPersistConfig = {
-  key: "auth",
+  key: 'auth',
   storage,
 };
 
@@ -27,16 +21,11 @@ const store = configureStore({
     product: productSlice.reducer,
     context: contextData.reducer,
     category: categorySlice.reducer,
-    discount: discountSlice.reducer
+    discount: discountSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-      //  {
-      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      // },
-    }),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
-export let persistor = persistStore(store);
+export const persistor = persistStore(store);
 export default store;
-

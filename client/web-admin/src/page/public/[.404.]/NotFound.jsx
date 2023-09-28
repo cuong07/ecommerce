@@ -1,15 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import React from 'react';
+import {
+  Box, Button, Container, Grid, Typography,
+} from '@mui/material';
 
-const NotFound = (props) => {
+function NotFound() {
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "80vh",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '80vh',
         flex: 1,
       }}
     >
@@ -34,6 +35,6 @@ const NotFound = (props) => {
       </Container>
     </Box>
   );
-};
+}
 
 export default NotFound;

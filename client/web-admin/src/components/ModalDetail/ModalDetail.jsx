@@ -1,15 +1,21 @@
-import React from "react";
-import { motion } from "framer-motion";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import SlideProduct from "../SlideProduct/SlideProduct";
-import { Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import { Grid } from "ag-grid-community";
-import moment from "moment";
+import React from 'react';
+import { motion } from 'framer-motion';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Box, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Grid } from 'ag-grid-community';
+import moment from 'moment';
+import SlideProduct from '../SlideProduct/SlideProduct';
 
-const ModalDetail = ({ isShow, handleClose, row, handleGetProductDetail }) => {
+function ModalDetail({
+  isShow,
+  handleClose,
+  row,
+  handleGetDetail,
+  isCategory,
+}) {
   return (
     <>
       {isShow && (
@@ -30,9 +36,8 @@ const ModalDetail = ({ isShow, handleClose, row, handleGetProductDetail }) => {
           </div>
           <div className="flex gap-4">
             <Button
-              component={Link}
-              to={`/product/${row.id}`}
-              onClick={() => handleGetProductDetail(row?.id)}
+              component="div"
+              onClick={() => handleGetDetail(row?.id)}
             >
               <motion.button
                 whileHover={{
@@ -69,6 +74,16 @@ const ModalDetail = ({ isShow, handleClose, row, handleGetProductDetail }) => {
             />
           )}
           <Box className="flex flex-col gap-5">
+            {isCategory && (
+              <span>
+                <span className="text-[#898A9A] text-xs font-light leading-4">
+                  Name
+                </span>
+                <Typography className="text-sm font-normal text-[#212539]">
+                  {row?.name}
+                </Typography>
+              </span>
+            )}
             <span>
               <span className="text-[#898A9A] text-xs font-light leading-4">
                 Description
@@ -77,54 +92,62 @@ const ModalDetail = ({ isShow, handleClose, row, handleGetProductDetail }) => {
                 {row?.description}
               </Typography>
             </span>
-            <span>
-              <span className="text-[#898A9A] text-xs font-light leading-4">
-                Price
+            {!isCategory && (
+              <span>
+                <span className="text-[#898A9A] text-xs font-light leading-4">
+                  Price
+                </span>
+                <Typography className="text-sm font-normal text-[#212539]">
+                  {row?.price}
+                </Typography>
               </span>
-              <Typography className="text-sm font-normal text-[#212539]">
-                {row?.price}
-              </Typography>
-            </span>
-            <span>
-              <span className="text-[#898A9A] text-xs font-light leading-4">
-                Inventory
+            )}
+            {!isCategory && (
+              <span>
+                <span className="text-[#898A9A] text-xs font-light leading-4">
+                  Inventory
+                </span>
+                <Typography className="text-sm font-normal text-[#212539]">
+                  {row?.ProductInventory?.quantity
+                    ? row?.ProductInventory?.quantity
+                    : 'Not update'}
+                </Typography>
               </span>
-              <Typography className="text-sm font-normal text-[#212539]">
-                {row?.ProductInventory?.quantity
-                  ? row?.ProductInventory?.quantity
-                  : "Not update"}
-              </Typography>
-            </span>
+            )}
+
             <span>
               <span className="text-[#898A9A] text-xs font-light leading-4">
                 Create
               </span>
               <Typography className="text-sm font-normal text-[#212539]">
-                {moment(row?.createdAt).format("LLL")}
+                {moment(row?.createdAt).format('LLL')}
               </Typography>
             </span>
+
             <span>
               <span className="text-[#898A9A] text-xs font-light leading-4">
                 Update
               </span>
               <Typography className="text-sm font-normal text-[#212539]">
-                {moment(row?.updatedAt).format("LLL")}
+                {moment(row?.updatedAt).format('LLL')}
               </Typography>
             </span>
-            <span>
-              <span className="text-[#898A9A] text-xs font-light leading-4">
-                Discount
+            {!isCategory && (
+              <span>
+                <span className="text-[#898A9A] text-xs font-light leading-4">
+                  Discount
+                </span>
+                <Typography className="text-sm font-normal text-[#212539]">
+                  {row?.Discount?.name ? row?.Discount?.name : 'Not update'}
+                </Typography>
               </span>
-              <Typography className="text-sm font-normal text-[#212539]">
-                {row?.Discount?.name ? row?.Discount?.name : "Not update"}
-              </Typography>
-            </span>
+            )}
           </Box>
         </div>
       )}
     </>
   );
-};
+}
 
 ModalDetail.propTypes = {};
 

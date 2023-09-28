@@ -1,14 +1,12 @@
-import React from "react";
-import { Footer, Header } from "../../common";
-import { Outlet } from "react-router";
-import Layout from "../Layout";
+import React from 'react';
+import { Outlet } from 'react-router';
 
-const Public = () => {
+function Public() {
   return (
     <div>
       <Outlet />
     </div>
   );
-};
+}
 
 export default Public;

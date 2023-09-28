@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import route from "../../../../constants/route";
-import { motion } from "framer-motion";
-import { EditForm } from "../../../../components";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import * as apis from "../../../../api";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { useDispatch, useSelector } from 'react-redux';
+import route from '../../../../constants/route';
+import { EditForm } from '../../../../components';
+import * as apis from '../../../../api';
 
-const CreateProduct = (props) => {
+function CreateProduct() {
   const { token } = useSelector((state) => state.auth.login.currentUser.data);
   const dispatch = useDispatch();
 
@@ -51,7 +49,7 @@ const CreateProduct = (props) => {
             className="text-[#898A9A] m-0 p-0 text-sm"
             to={route.PRODUCT}
           >
-            {" "}
+            {' '}
             Products
           </Box>
           <NavigateNextIcon
@@ -61,7 +59,7 @@ const CreateProduct = (props) => {
             }}
           />
           <Typography className="text-black m-0 p-0 text-sm" component="span">
-            {" "}
+            {' '}
             Create
           </Typography>
         </Box>
@@ -69,40 +67,12 @@ const CreateProduct = (props) => {
           <Typography
             sx={{
               fontSize: 32,
-              lineHeight: "40px",
+              lineHeight: '40px',
               fontWeight: 400,
             }}
           >
             Create product
           </Typography>
-          {/* <Box component="div" className="flex gap-4">
-            <Box component={Link}>
-              <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.4 },
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="py-1 px-8 border border-blue-400 rounded-md text-blue-400 flex items-center gap-1"
-              >
-                <TvIcon />
-                <span>Show</span>
-              </motion.button>
-            </Box>
-            <Box component={Link}>
-              <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.4 },
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="py-1 px-8 border border-red-500 text-red-500 rounded-md flex items-center gap-1  "
-              >
-                <DeleteForeverIcon />
-                <span>delete</span>
-              </motion.button>
-            </Box>
-          </Box> */}
         </Box>
         <Box component="div">
           <EditForm
@@ -115,8 +85,6 @@ const CreateProduct = (props) => {
       {/* {isFetching && <Box>loadding</Box>} */}
     </>
   );
-};
-
-CreateProduct.propTypes = {};
+}
 
 export default CreateProduct;

@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+
 const filter = {
   page: 1,
   size: 10,
@@ -16,7 +17,7 @@ const initialState = {
 };
 
 const productSlice = createSlice({
-  name: "product",
+  name: 'product',
   initialState,
   reducers: {
     getProductStart: (state) => {

@@ -1,13 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Layout from '../../Layout'
+import React from 'react';
 
-const Home = props => {
+function Home() {
   return (
     <div>Home</div>
-  )
+  );
 }
 
-Home.propTypes = {}
-
-export default Home
+export default Home;

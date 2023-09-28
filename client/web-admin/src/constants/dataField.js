@@ -1,52 +1,80 @@
 export const dataProductField = [
   {
-    name: "Id",
-    field: "id",
+    name: 'Id',
+    field: 'id',
     sort: false,
   },
   {
-    name: "Image",
-    field: "image",
+    name: 'Image',
+    field: 'image',
     sort: false,
   },
   {
-    name: "Name",
-    field: "name",
+    name: 'Name',
+    field: 'name',
     sort: true,
   },
   {
-    name: "Description",
-    field: "description",
+    name: 'Description',
+    field: 'description',
     sort: true,
   },
   {
-    name: "Price",
-    field: "price",
+    name: 'Price',
+    field: 'price',
     sort: true,
   },
   {
-    name: "Created date",
-    field: "createdAt",
+    name: 'Created date',
+    field: 'createdAt',
     sort: true,
   },
   {
-    name: "Updated date",
-    field: "updatedAt",
+    name: 'Updated date',
+    field: 'updatedAt',
     sort: true,
   },
   {
-    name: "Category",
-    field: "ProductCategory",
+    name: 'Category',
+    field: 'ProductCategory',
     sort: false,
   },
   {
-    name: "Inventory",
-    field: "ProductInventory",
+    name: 'Inventory',
+    field: 'ProductInventory',
     sort: false,
   },
   {
-    name: "Discount",
-    field: "Discount",
+    name: 'Discount',
+    field: 'Discount',
     sort: false,
+  },
+];
+
+export const dataCategoryField = [
+  {
+    name: 'Id',
+    field: 'id',
+    sort: true,
+  },
+  {
+    name: 'Name',
+    field: 'name',
+    sort: true,
+  },
+  {
+    name: 'Description',
+    field: 'description',
+    sort: true,
+  },
+  {
+    name: 'Created At',
+    field: 'createdAt',
+    sort: true,
+  },
+  {
+    name: 'Updated At',
+    field: 'updatedAt',
+    sort: true,
   },
 ];

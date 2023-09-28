@@ -1,8 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Input } from "@mui/material";
+import React from 'react';
 
-const InputFile = (props) => {
+function InputFile() {
   return (
     <div className="mb-3 w-96">
       <label
@@ -19,8 +17,6 @@ const InputFile = (props) => {
       />
     </div>
   );
-};
-
-InputFile.propTypes = {};
+}
 
 export default InputFile;

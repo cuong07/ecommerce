@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const ListItemLink = ({ icon, primary, to }) => {
+function ListItemLink({ icon, primary, to }) {
   return (
     <li>
       <ListItem button component={Link} to={to}>
@@ -12,7 +12,7 @@ const ListItemLink = ({ icon, primary, to }) => {
       </ListItem>
     </li>
   );
-};
+}
 
 ListItemLink.propTypes = {};
 

@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const EnhancedTableHead = props => {
+function EnhancedTableHead(props) {
   return (
     <div>EnhancedTableHead</div>
-  )
+  );
 }
 
-EnhancedTableHead.propTypes = {}
+EnhancedTableHead.propTypes = {};
 
-export default EnhancedTableHead
+export default EnhancedTableHead;

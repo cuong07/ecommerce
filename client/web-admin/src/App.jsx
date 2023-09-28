@@ -1,6 +1,6 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import route from "./constants/route";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import route from './constants/route';
 import {
   Login,
   Public,
@@ -10,24 +10,24 @@ import {
   EditProduct,
   NotFound,
   CreateProduct,
-} from "./page/public";
+  Category,
+} from './page/public';
 
-const App = () => {
+function App() {
   return (
-    <>
-      <Routes>
-        <Route path={route.PUBLIC} element={<Public />}>
-          <Route index element={<Home />} />
-          <Route path={route.LOGIN} element={<Login />} />
-          <Route path={route.SIGNUP} element={<Signup />} />
-          <Route path={route.PRODUCT} element={<Product />} />
-          <Route path={route.PRODUCT_CREATE} element={<CreateProduct />} />
-          <Route path={route.NOTFOUND} element={<NotFound />} />
-          <Route path={route.PRODUCT_EDIT} element={<EditProduct />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path={route.PUBLIC} element={<Public />}>
+        <Route index element={<Home />} />
+        <Route path={route.LOGIN} element={<Login />} />
+        <Route path={route.SIGNUP} element={<Signup />} />
+        <Route path={route.PRODUCT} element={<Product />} />
+        <Route path={route.CATEGORY} element={<Category />} />
+        <Route path={route.PRODUCT_CREATE} element={<CreateProduct />} />
+        <Route path={route.NOTFOUND} element={<NotFound />} />
+        <Route path={route.PRODUCT_EDIT} element={<EditProduct />} />
+      </Route>
+    </Routes>
   );
-};
+}
 
 export default App;
