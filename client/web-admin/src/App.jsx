@@ -9,6 +9,7 @@ import {
   Product,
   EditProduct,
   NotFound,
+  CreateProduct,
 } from "./page/public";
 
 const App = () => {
@@ -20,8 +21,9 @@ const App = () => {
           <Route path={route.LOGIN} element={<Login />} />
           <Route path={route.SIGNUP} element={<Signup />} />
           <Route path={route.PRODUCT} element={<Product />} />
-          <Route path={route.PRODUCT_DETAIL} element={<EditProduct />} />
+          <Route path={route.PRODUCT_CREATE} element={<CreateProduct />} />
           <Route path={route.NOTFOUND} element={<NotFound />} />
+          <Route path={route.PRODUCT_EDIT} element={<EditProduct />} />
         </Route>
       </Routes>
     </>

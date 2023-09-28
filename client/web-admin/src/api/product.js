@@ -84,3 +84,18 @@ export const updateImageProduct = async (token, dispatch, data) => {
     dispatch(productSliceAction.getProductError());
   }
 };
+
+export const createProduct = async (token, dispatch, product) => {
+  dispatch(productSliceAction.getProductStart());
+  try {
+    await ApiRequest.post("/product", product, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch(productSliceAction.createProduct());
+  } catch (error) {
+    dispatch(productSliceAction.getProductError());
+  }
+};

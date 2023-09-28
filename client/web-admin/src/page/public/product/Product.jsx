@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Pagination, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
+import FilterListIcon from '@mui/icons-material/FilterList';
+
 import { ModalDetail, TableProduct } from "../../../components";
 import * as apis from "../../../api";
-import { useDispatch, useSelector } from "react-redux";
 import { dataProductField } from "../../../constants/dataField";
-import { Link } from "react-router-dom";
+import route from "../../../constants/route";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -73,15 +78,47 @@ const Product = () => {
             Products
           </Typography>
         </div>
-        <Typography
-          sx={{
-            fontSize: 32,
-            lineHeight: "40px",
-            fontWeight: 400,
-          }}
-        >
-          Products
-        </Typography>
+        <Box component="div" className="flex justify-between">
+          <Typography
+            sx={{
+              fontSize: 32,
+              lineHeight: "40px",
+              fontWeight: 400,
+            }}
+          >
+            Products
+          </Typography>
+          <Box component="div">
+            <Box component="div" className="flex gap-4">
+              <Box component={Link} to={route.PRODUCT_CREATE}>
+                <motion.button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.4 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="py-1 px-8 border border-[#3b58d6] rounded-md text-[#3b58d6] flex items-center gap-1"
+                >
+                  <AddIcon />
+                  <span>Create</span>
+                </motion.button>
+              </Box>
+              <Box component={Link}>
+                <motion.button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.4 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="py-1 px-8  rounded-md text-[#3b58d6] flex items-center gap-1"
+                >
+                  <FilterListIcon />
+                  <span>Filter</span>
+                </motion.button>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
         <div className="relative mt-5">
           {list && (
             <TableProduct
@@ -92,7 +129,7 @@ const Product = () => {
             />
           )}
         </div>
-        <div>
+        <div className="mt-4">
           <Pagination
             count={totalPages}
             color="primary"

@@ -12,9 +12,12 @@ import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Image } from "@mui/icons-material";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const {user} = useSelector(state => state.auth.login.currentUser.data)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,13 +46,13 @@ const Header = () => {
             variant="p"
             sx={{ display: "flex", alignItems: "center" }}
           >
-            admin@gamil.com
+          {user?.email}
           </Typography>
           <Avatar
             sx={{ width: "32px", height: "32px", cursor: "pointer" }}
             onClick={handleClick}
+            src={user?.image}
           >
-            <AccountCircleIcon />
           </Avatar>
           <Popover
             id={id}

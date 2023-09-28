@@ -26,16 +26,13 @@ const TableProduct = ({ dataField, list, openModal, closeModal }) => {
   const handleSort = (field) => {
     const sortedData = [...data];
     sortedData.sort((a, b) => {
-      // Chuyển đổi trường "price" thành số trước khi sắp xếp
       const fieldValueA = field === "price" ? parseFloat(a[field]) : a[field];
       const fieldValueB = field === "price" ? parseFloat(b[field]) : b[field];
 
-      // Kiểm tra nếu fieldValueA hoặc fieldValueB là null hoặc undefined
       if (fieldValueA == null || fieldValueB == null) {
         return 0;
       }
 
-      // Sử dụng toUpperCase() để sắp xếp không phân biệt chữ hoa chữ thường
       const fieldValueAUppercase = fieldValueA.toString().toUpperCase();
       const fieldValueBUppercase = fieldValueB.toString().toUpperCase();
 
@@ -117,9 +114,12 @@ const TableProduct = ({ dataField, list, openModal, closeModal }) => {
                       />
                     </TableCell>
                   )}
-                  <TableCell>  {row.name && row.name.length > 25
+                  <TableCell>
+                    {" "}
+                    {row.name && row.name.length > 25
                       ? `${row.name.substring(0, 25)}...`
-                      : row.name}</TableCell>
+                      : row.name}
+                  </TableCell>
                   <TableCell>
                     {row.description && row.description.length > 50
                       ? `${row.description.substring(0, 50)}...`

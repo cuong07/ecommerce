@@ -1,43 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Typography } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Link, useParams } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import route from "../../../../constants/route";
 import { motion } from "framer-motion";
-import TvIcon from "@mui/icons-material/Tv";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useDispatch, useSelector } from "react-redux";
-import EditForm from "../../../../components/EditForm/EditForm";
+import { EditForm } from "../../../../components";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import * as apis from "../../../../api";
-const EditProduct = (props) => {
-  let { id } = useParams();
-  const dispatch = useDispatch();
-  const [product, setProduct] = useState(null);
+import { useDispatch, useSelector } from "react-redux";
 
+const CreateProduct = (props) => {
   const { token } = useSelector((state) => state.auth.login.currentUser.data);
-  const { productDetail, isFetching } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
   const { category } = useSelector((state) => state.category);
   const { discountList } = useSelector((state) => state.discount);
+
   useEffect(() => {
     const fetchData = async () => {
-      await apis.getProductById(token, dispatch, id);
       await apis.getCategory(dispatch);
       await apis.getDiscount(dispatch);
     };
     fetchData();
-  }, [id]);
+  }, []);
 
-  useEffect(() => {
-    setProduct(productDetail);
-  }, [productDetail]);
-
-  const handleSubmitEdit = (product) => {
-    console.log(product);
-    apis.updateProduct(token, dispatch, product);
-  };
-
-  const handleUpdateImage = (data) => {
-    apis.updateImageProduct(token, dispatch, data);
+  const handleSubmit = (product) => {
+    // console.log(product);
+    apis.createProduct(token, dispatch, product);
   };
 
   return (
@@ -47,7 +36,7 @@ const EditProduct = (props) => {
           <Box
             component={Link}
             className="text-[#898A9A] m-0 p-0 text-sm"
-            to="/"
+            to={route.PUBLIC}
           >
             Dashboard
           </Box>
@@ -60,7 +49,7 @@ const EditProduct = (props) => {
           <Box
             component={Link}
             className="text-[#898A9A] m-0 p-0 text-sm"
-            to="/product"
+            to={route.PRODUCT}
           >
             {" "}
             Products
@@ -71,12 +60,9 @@ const EditProduct = (props) => {
               height: 18,
             }}
           />
-          <Typography
-              className="text-black m-0 p-0 text-sm"
-            component="span"
-          >
+          <Typography className="text-black m-0 p-0 text-sm" component="span">
             {" "}
-            Edit
+            Create
           </Typography>
         </Box>
         <Box component="div" className="flex justify-between">
@@ -87,9 +73,9 @@ const EditProduct = (props) => {
               fontWeight: 400,
             }}
           >
-            Edit
+            Create product
           </Typography>
-          <Box component="div" className="flex gap-4">
+          {/* <Box component="div" className="flex gap-4">
             <Box component={Link}>
               <motion.button
                 whileHover={{
@@ -116,24 +102,21 @@ const EditProduct = (props) => {
                 <span>delete</span>
               </motion.button>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
         <Box component="div">
           <EditForm
-            productId={id}
-            product={product}
             category={category?.data}
             discount={discountList?.data}
-            onSubmit={handleSubmitEdit}
-            handleUpdateImage={handleUpdateImage}
+            onSubmit={handleSubmit}
           />
         </Box>
       </Box>
-      {isFetching && <Box>loadding</Box>}
+      {/* {isFetching && <Box>loadding</Box>} */}
     </>
   );
 };
 
-EditProduct.propTypes = {};
+CreateProduct.propTypes = {};
 
-export default EditProduct;
+export default CreateProduct;

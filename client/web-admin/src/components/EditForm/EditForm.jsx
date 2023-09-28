@@ -29,6 +29,7 @@ const schema = yup.object().shape({
   description: yup.string().required("Please enter a description"),
   price: yup.number().required("Please enter a number"),
   image: yup.mixed().nullable(),
+  inventory: yup.number().nullable().required("Please enter a quantity"),
 });
 
 const EditForm = ({
@@ -65,6 +66,7 @@ const EditForm = ({
       categoryId: "",
       discountId: "",
       image: null,
+      inventory: "",
     },
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
@@ -135,6 +137,7 @@ const EditForm = ({
       setValue("categoryId", productData?.ProductCategory?.id || "");
       setValue("discountId", productData?.Discount?.id || "");
       setValue("image", null);
+      setValue("inventory", productData?.ProductInventory?.quantity);
       try {
         let images = JSON.parse(productData.image);
         setImageList(images);
@@ -153,7 +156,7 @@ const EditForm = ({
 
   return (
     <>
-      <Box component="div" className="bg-white p-4 shadow-lg rounded-lg">
+      <Box component="div" className="bg-white p-8 shadow-lg rounded-lg">
         <form
           onSubmit={handleSubmit(onSubmit, onInvalid)}
           className="flex flex-col gap-4"
@@ -198,13 +201,29 @@ const EditForm = ({
               />
             </Box>
           </Box>
-          <Box className="w-1/2">
-            <SelectFied
-              data={discount}
-              handleChange={handleChangeDiscount}
-              defaultValue={productData?.Discount}
-              value={discountSelect}
-              label="Discount"
+          <Box component="div" className="flex w-1/2 gap-6">
+            <Box className="w-2/3">
+              <SelectFied
+                data={discount}
+                handleChange={handleChangeDiscount}
+                defaultValue={productData?.Discount}
+                value={discountSelect}
+                label="Discount"
+              />
+            </Box>
+            <Controller
+              name="inventory"
+              control={control}
+              render={({ field }) => (
+                <Box className=" flex-1 flex flex-col">
+                  <TextField {...field} label="Quantity" />
+                  {errors.price && (
+                    <span className="text-sm text-red-400">
+                      {errors.price.message}
+                    </span>
+                  )}
+                </Box>
+              )}
             />
           </Box>
 
@@ -229,7 +248,6 @@ const EditForm = ({
           />
 
           <Box component="div">
-            <InputLabel id="input-file">Image</InputLabel>
             <ImageList
               sx={{ width: "100%" }}
               gap={16}
@@ -279,7 +297,6 @@ const EditForm = ({
             control={control}
             render={({ field }) => (
               <Box>
-                <InputLabel id="input-uploader">Upload image</InputLabel>
                 <FileUploader
                   handleChange={handleImageUpload}
                   name="image"

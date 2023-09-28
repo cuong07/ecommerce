@@ -41,6 +41,9 @@ const productSlice = createSlice({
     updateProductSuccess: (state) => {
       state.isFetching = false;
     },
+    createProduct: (state, action) => {
+      state.isFetching = false;
+    },
   },
 });
 
