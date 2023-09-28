@@ -7,7 +7,7 @@ const router = express.Router();
 router.post(
   "/product",
   auth.verifyTokenAndAdminAuth,
-  upload.array("image"),
+  upload.array("image[]"),
   ProductControllers.createProduct
 );
 router.put(
