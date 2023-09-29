@@ -4,10 +4,10 @@ import { Box, Pagination, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import AddIcon from '@mui/icons-material/Add';
-import FilterListIcon from '@mui/icons-material/FilterList';
+import AddIcon from "@mui/icons-material/Add";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
-import { ModalDetail, TableProduct } from "../../../components";
+import { ModalDetail, NavigateHeader, TableProduct } from "../../../components";
 import * as apis from "../../../api";
 import { dataProductField } from "../../../constants/dataField";
 import route from "../../../constants/route";
@@ -17,6 +17,8 @@ const Product = () => {
   const navigate = useNavigate();
   const [rowData, setRowData] = useState(null);
   const [isShowModalDetail, setIsShowModelDetail] = useState(false);
+
+  const routes = [{ name: "Dashboard", to: route.PUBLIC }];
 
   const openModal = (row) => {
     setIsShowModelDetail(true);
@@ -50,35 +52,7 @@ const Product = () => {
   return (
     <div className="p-8 flex-1 bg-[#f8f9f9] overflow-hidden">
       <div>
-        <div>
-          <Box
-            component={Link}
-            sx={{
-              fontSize: 12,
-              color: "black",
-              padding: 0,
-              margin: 0,
-            }}
-            to="/"
-          >
-            Dashboard
-          </Box>
-          <NavigateNextIcon
-            sx={{
-              width: 18,
-              height: 18,
-            }}
-          />
-          <Typography
-            component="a"
-            sx={{
-              fontSize: 12,
-            }}
-          >
-            {" "}
-            Products
-          </Typography>
-        </div>
+        <NavigateHeader routes={routes} entry="Products" />
         <Box component="div" className="flex justify-between">
           <Typography
             sx={{

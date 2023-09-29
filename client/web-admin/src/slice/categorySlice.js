@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   category: {},
@@ -9,19 +9,22 @@ const initialState = {
 };
 
 const categorySlice = createSlice({
-  name: 'category',
+  name: "category",
   initialState,
   reducers: {
-    getCategoryStart: (state) => {
+    fetchingStart: (state) => {
       state.isFetching = true;
+    },
+    fetchingError: (state) => {
+      state.isFetching = false;
+      state.error = true;
     },
     getCategorySuccess: (state, action) => {
       state.isFetching = false;
       state.category = action.payload.data;
     },
-    getCategoryError: (state) => {
+    createCategorySuccess: (state) => {
       state.isFetching = false;
-      state.error = true;
     },
   },
 });

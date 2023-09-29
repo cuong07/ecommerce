@@ -68,6 +68,11 @@ export const dataCategoryField = [
     sort: true,
   },
   {
+    name: 'Product count',
+    field: 'productCount',
+    sort: true,
+  },
+  {
     name: 'Created At',
     field: 'createdAt',
     sort: true,

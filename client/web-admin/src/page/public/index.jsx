@@ -7,3 +7,6 @@ export { default as EditProduct } from './product/edit-product';
 export { default as CreateProduct } from './product/create-product';
 export { default as NotFound } from './[.404.]';
 export { default as Category } from './category';
+export { default as CreateCategory } from './category/create-category';
+export { default as EditCategory } from './category/edit-category';
+

@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import TvIcon from '@mui/icons-material/Tv';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useDispatch, useSelector } from 'react-redux';
-import EditForm from '../../../../components/EditForm/EditForm';
-import * as apis from '../../../../api';
+import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Link, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import TvIcon from "@mui/icons-material/Tv";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useDispatch, useSelector } from "react-redux";
+import EditForm from "../../../../components/EditForm/EditForm";
+import * as apis from "../../../../api";
+import { NavigateHeader } from "../../../../components";
+import route from "../../../../constants/route";
+
+const routes = [
+  { name: "Dashboard", to: route.PUBLIC },
+  { name: "Products", to: route.PRODUCT },
+];
 
 function EditProduct() {
   const { id } = useParams();
@@ -42,44 +49,12 @@ function EditProduct() {
   return (
     <>
       <Box component="div" className="p-8 bg-[#f8f9f9] flex flex-col gap-4">
-        <Box component="div" className="">
-          <Box
-            component={Link}
-            className="text-[#898A9A] m-0 p-0 text-sm"
-            to="/"
-          >
-            Dashboard
-          </Box>
-          <NavigateNextIcon
-            sx={{
-              width: 18,
-              height: 18,
-            }}
-          />
-          <Box
-            component={Link}
-            className="text-[#898A9A] m-0 p-0 text-sm"
-            to="/product"
-          >
-            {' '}
-            Products
-          </Box>
-          <NavigateNextIcon
-            sx={{
-              width: 18,
-              height: 18,
-            }}
-          />
-          <Typography className="text-black m-0 p-0 text-sm" component="span">
-            {' '}
-            Edit
-          </Typography>
-        </Box>
+        <NavigateHeader routes={routes} entry="Edit" />
         <Box component="div" className="flex justify-between">
           <Typography
             sx={{
               fontSize: 32,
-              lineHeight: '40px',
+              lineHeight: "40px",
               fontWeight: 400,
             }}
           >

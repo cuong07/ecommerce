@@ -23,7 +23,6 @@ function CreateProduct() {
   }, []);
 
   const handleSubmit = (product) => {
-    // console.log(product);
     apis.createProduct(token, dispatch, product);
   };
 
