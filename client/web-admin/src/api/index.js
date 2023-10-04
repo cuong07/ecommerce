@@ -7,5 +7,12 @@ export {
   createProduct,
 } from "./product";
 export { login } from "./auth";
-export { getCategory, createCategory } from "./category";
+export {
+  getCategory,
+  createCategory,
+  updateCategory,
+  getCategoryById,
+} from "./category";
 export { getDiscount } from "./discount";
+
+export { getLineChart, getPieChartCategory } from "./chartData";

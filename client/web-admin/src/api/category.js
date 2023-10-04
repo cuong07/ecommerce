@@ -24,3 +24,27 @@ export const createCategory = async (token, dispatch, data) => {
     dispatch(categorySliceActions.fetchingError());
   }
 };
+
+export const updateCategory = async (token, dispatch, data) => {
+  dispatch(categorySliceActions.fetchingStart());
+  try {
+    await ApiRequest.put("/category", data, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    dispatch(categorySliceActions.updateCategorySuccess());
+  } catch (error) {
+    dispatch(categorySliceActions.fetchingError());
+  }
+};
+
+export const getCategoryById = async (dispatch, id) => {
+  dispatch(categorySliceActions.fetchingStart());
+  try {
+    const res = await ApiRequest.get(`/category/${id}`);
+    dispatch(categorySliceActions.getCategoryDetailSuccess(res));
+  } catch (error) {
+    dispatch(categorySliceActions.fetchingError());
+  }
+};

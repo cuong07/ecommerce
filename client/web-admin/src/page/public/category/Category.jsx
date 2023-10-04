@@ -17,6 +17,7 @@ import route from "../../../constants/route";
 const routes = [{ name: "Dashboard", to: route.PUBLIC }];
 function Category(props) {
   const { category } = useSelector((state) => state.category);
+  const { token } = useSelector((state) => state.auth.login.currentUser.data);
   const dispatch = useDispatch();
   const [isShowModalDetail, setIsShowModelDetail] = useState(false);
   const [rowData, setRowData] = useState(null);

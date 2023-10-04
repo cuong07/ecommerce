@@ -1,15 +1,19 @@
 import { Box, Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import * as apis from "../../api";
+import { useDispatch } from "react-redux";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter a name."),
   description: yup.string().required("Please enter a description"),
 });
 
-const EditFormV2 = ({ onSubmit }) => {
+const EditFormV2 = ({ onSubmit, data }) => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -28,9 +32,12 @@ const EditFormV2 = ({ onSubmit }) => {
   });
   const onInvalid = (errors) => console.error(errors);
 
-  // const resetField = () => {
-  //   reset();
-  // };
+  useEffect(() => {
+    if (data) {
+      setValue("name", data?.name);
+      setValue("description", data?.description);
+    }
+  }, [data]);
 
   return (
     <Box

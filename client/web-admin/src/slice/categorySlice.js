@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   category: {},
+  categoryDetail: {},
   newCategory: {},
   updateCategory: {},
   isFetching: false,
@@ -25,6 +26,13 @@ const categorySlice = createSlice({
     },
     createCategorySuccess: (state) => {
       state.isFetching = false;
+    },
+    updateCategorySuccess: (state) => {
+      state.isFetching = false;
+    },
+    getCategoryDetailSuccess: (state, action) => {
+      state.isFetching = false;
+      state.categoryDetail = action.payload.data;
     },
   },
 });

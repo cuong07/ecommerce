@@ -7,5 +7,4 @@ const index = () => (
     <Category />
   </Layout>
 );
-
 export default index;

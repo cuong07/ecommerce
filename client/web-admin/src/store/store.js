@@ -1,20 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
-import {
-  persistStore,
-  persistReducer,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import { authSlice, categorySlice, productSlice } from '../slice';
-import contextData from '../slice/context';
-import discountSlice from '../slice/discountSlice';
+import { authSlice, categorySlice, chartSlice, productSlice } from "../slice";
+import contextData from "../slice/context";
+import discountSlice from "../slice/discountSlice";
 
 const authPersistConfig = {
-  key: 'auth',
+  key: "auth",
   storage,
 };
 
-const persistedAuthReducer = persistReducer(authPersistConfig, authSlice.reducer);
+const persistedAuthReducer = persistReducer(
+  authPersistConfig,
+  authSlice.reducer
+);
 const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
@@ -22,10 +22,12 @@ const store = configureStore({
     context: contextData.reducer,
     category: categorySlice.reducer,
     discount: discountSlice.reducer,
+    chart: chartSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 export const persistor = persistStore(store);
 export default store;

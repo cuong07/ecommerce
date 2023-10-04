@@ -1,11 +1,12 @@
-import React from 'react';
-import Layout from '../../Layout';
-import Login from './Login';
+import React from "react";
+import Layout from "../../Layout";
+import Login from "./Login";
 
 const index = () => (
-  <Layout hiddenHeader hiddenFooter hiddenNavigate>
-    <Login />
-  </Layout>
+  // <Layout hiddenHeader hiddenFooter hiddenNavigate>
+
+  // </Layout>
+  <Login />
 );
 
 export default index;
