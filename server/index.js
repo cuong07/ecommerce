@@ -35,6 +35,7 @@ const cartRoutes = require("./src/routes/Cart");
 const orderRoutes = require("./src/routes/Order");
 const paymentRoutes = require("./src/routes/Payment");
 const reviewRoutes = require("./src/routes/Review");
+const datasetRoutes = require("./src/routes/Dataset");
 // DATABASE
 
 Product.belongsTo(ProductCategory);
@@ -61,9 +62,9 @@ User.hasOne(UserPayment);
 Wishlist.belongsTo(User);
 Review.belongsTo(Product);
 Product.hasMany(Review);
-Review.belongsTo(User)
-User.hasMany(Review)
-Rating.belongsTo(Product)
+Review.belongsTo(User);
+User.hasMany(Review);
+Rating.belongsTo(Product);
 
 const app = express();
 app.use(cookieParser());
@@ -85,6 +86,7 @@ app.use("/apiv1", cartRoutes);
 app.use("/apiv1", orderRoutes);
 app.use("/apiv1", paymentRoutes);
 app.use("/apiv1", reviewRoutes);
+app.use("/apiv1", datasetRoutes);
 
 app.get((req, res) => {
   res.status(404).send("Sorry, resource not found");

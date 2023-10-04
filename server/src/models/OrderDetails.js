@@ -17,4 +17,5 @@ const OrderDetails = sequelize.define("OrderDetails", {
 });
 
 
+
 module.exports = OrderDetails;
