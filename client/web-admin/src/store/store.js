@@ -2,9 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { authSlice, categorySlice, chartSlice, productSlice } from "../slice";
+import {
+  authSlice,
+  cartSlice,
+  categorySlice,
+  chartSlice,
+  orderSlice,
+  productSlice,
+} from "../slice";
 import contextData from "../slice/context";
 import discountSlice from "../slice/discountSlice";
+import modalSlice from "../slice/modalSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -15,6 +23,7 @@ const persistedAuthReducer = persistReducer(
   authPersistConfig,
   authSlice.reducer
 );
+
 const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
@@ -23,6 +32,9 @@ const store = configureStore({
     category: categorySlice.reducer,
     discount: discountSlice.reducer,
     chart: chartSlice.reducer,
+    modal: modalSlice.reducer,
+    cart: cartSlice.reducer,
+    order: orderSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

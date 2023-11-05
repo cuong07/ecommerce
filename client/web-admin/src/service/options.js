@@ -3,10 +3,12 @@ export const options = {
   plugins: {
     legend: {
       position: "bottom",
+      easing: "easeInBounce",
     },
     title: {
       display: true,
       text: "Total revenue for the last 30 days.",
+      fontSize: 40,
     },
   },
 };
@@ -16,11 +18,12 @@ export const optionsPieChart = {
   plugins: {
     legend: {
       position: "right",
-      // display: false,
+      easing: "easeInBounce",
     },
     title: {
       display: true,
       text: "Count product for category",
+      fontSize: 25,
     },
   },
 };

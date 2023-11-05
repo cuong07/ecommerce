@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Controller, set, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { Controller, set, useForm } from "react-hook-form";
 import {
   Box,
   Button,
@@ -14,21 +14,21 @@ import {
   TextField,
   TextareaAutosize,
   Typography,
-} from '@mui/material';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector } from 'react-redux';
-import CloseIcon from '@mui/icons-material/Close';
-import { motion } from 'framer-motion';
-import { FileUploader } from 'react-drag-drop-files';
-import SelectFied from '../SelectFied/SelectFied';
+} from "@mui/material";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
+import { motion } from "framer-motion";
+import { FileUploader } from "react-drag-drop-files";
+import SelectFied from "../SelectFied/SelectFied";
 
 const schema = yup.object().shape({
-  name: yup.string().required('Please enter a name.'),
-  description: yup.string().required('Please enter a description'),
-  price: yup.number().required('Please enter a number'),
+  name: yup.string().required("Please enter a name."),
+  description: yup.string().required("Please enter a description"),
+  price: yup.number().required("Please enter a number"),
   image: yup.mixed().nullable(),
-  inventory: yup.number().nullable().required('Please enter a quantity'),
+  inventory: yup.number().nullable().required("Please enter a quantity"),
 });
 
 function EditForm({
@@ -43,10 +43,10 @@ function EditForm({
   const [productData, setProductData] = useState(null);
   const [imageList, setImageList] = useState(null);
   const [listImageUpload, setListImageUpload] = useState([]);
-  const [categorySelect, setCategorySelect] = useState('');
-  const [discountSelect, setDiscountSelect] = useState('');
+  const [categorySelect, setCategorySelect] = useState("");
+  const [discountSelect, setDiscountSelect] = useState("");
 
-  const fileTypes = ['JPG', 'PNG', 'GIF'];
+  const fileTypes = ["JPG", "PNG", "GIF"];
   const { imageUrl } = useSelector((state) => state.context);
 
   const {
@@ -58,18 +58,18 @@ function EditForm({
     reset,
   } = useForm({
     defaultValues: {
-      name: '',
-      description: '',
-      price: '',
+      name: "",
+      description: "",
+      price: "",
       productId,
-      categoryId: '',
-      discountId: '',
+      categoryId: "",
+      discountId: "",
       image: null,
-      inventory: '',
+      inventory: "",
     },
     resolver: yupResolver(schema),
-    reValidateMode: 'onChange',
-    mode: 'all',
+    reValidateMode: "onChange",
+    mode: "all",
   });
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function EditForm({
 
   const handleImageUpload = (files) => {
     setFiles(files);
-    setValue('image', files);
+    setValue("image", files);
   };
 
   const deleteImage = async (imageId) => {
@@ -129,22 +129,22 @@ function EditForm({
 
   useEffect(() => {
     if (productData) {
-      setValue('name', productData?.name);
-      setValue('description', productData?.description);
-      setValue('price', productData?.price);
-      setValue('productId', productId);
-      setValue('categoryId', productData?.ProductCategory?.id || '');
-      setValue('discountId', productData?.Discount?.id || '');
-      setValue('image', null);
-      setValue('inventory', productData?.ProductInventory?.quantity);
+      setValue("name", productData?.name);
+      setValue("description", productData?.description);
+      setValue("price", productData?.price);
+      setValue("productId", productId);
+      setValue("categoryId", productData?.ProductCategory?.id || "");
+      setValue("discountId", productData?.Discount?.id || "");
+      setValue("image", null);
+      setValue("inventory", productData?.ProductInventory?.quantity);
       try {
         const images = JSON.parse(productData.image);
         setImageList(images);
       } catch (error) {
-        console.error('Error parsing JSON:', error);
+        console.error("Error parsing JSON:", error);
       }
-      setCategorySelect(productData.ProductCategory?.id || '');
-      setDiscountSelect(productData.Discount?.id || '');
+      setCategorySelect(productData.ProductCategory?.id || "");
+      setDiscountSelect(productData.Discount?.id || "");
     }
   }, [productData]);
 
@@ -166,9 +166,9 @@ function EditForm({
             <Box className="w-full flex flex-col">
               <TextField {...field} label="Name" />
               {errors.name && (
-              <span className="text-sm text-red-400 ">
-                {errors.name.message}
-              </span>
+                <span className="text-sm text-red-400 ">
+                  {errors.name.message}
+                </span>
               )}
             </Box>
           )}
@@ -181,9 +181,9 @@ function EditForm({
               <Box className="w-1/3 flex flex-col">
                 <TextField {...field} label="Price" />
                 {errors.price && (
-                <span className="text-sm text-red-400">
-                  {errors.price.message}
-                </span>
+                  <span className="text-sm text-red-400">
+                    {errors.price.message}
+                  </span>
                 )}
               </Box>
             )}
@@ -216,9 +216,9 @@ function EditForm({
               <Box className=" flex-1 flex flex-col">
                 <TextField {...field} label="Quantity" />
                 {errors.price && (
-                <span className="text-sm text-red-400">
-                  {errors.price.message}
-                </span>
+                  <span className="text-sm text-red-400">
+                    {errors.price.message}
+                  </span>
                 )}
               </Box>
             )}
@@ -237,9 +237,9 @@ function EditForm({
                 {...field}
               />
               {errors.description && (
-              <span className="text-sm text-red-400 ">
-                {errors.description.message}
-              </span>
+                <span className="text-sm text-red-400 ">
+                  {errors.description.message}
+                </span>
               )}
             </Box>
           )}
@@ -247,7 +247,7 @@ function EditForm({
 
         <Box component="div">
           <ImageList
-            sx={{ width: '100%' }}
+            sx={{ width: "100%" }}
             gap={16}
             cols={3}
             id="input-file"
@@ -274,7 +274,7 @@ function EditForm({
                   <motion.div
                     whileHover={{ scale: 1.1 }}
                     transition={{
-                      type: 'spring',
+                      type: "spring",
                       stiffness: 400,
                       damping: 10,
                     }}

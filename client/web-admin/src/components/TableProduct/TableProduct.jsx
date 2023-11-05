@@ -43,7 +43,6 @@ function TableProduct({ dataField, list, openModal, isCategory }) {
     } else {
       setSortBy(field);
     }
-
     setData(sortedData);
   };
 
@@ -87,7 +86,7 @@ function TableProduct({ dataField, list, openModal, isCategory }) {
             let imageSrc;
             if (row.image) {
               listImage = JSON.parse(row.image);
-              imageSrc = imageUrl + listImage[0];
+              imageSrc = imageUrl + listImage[1];
             }
             return (
               <TableRow

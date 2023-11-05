@@ -88,7 +88,7 @@ function Category(props) {
           </Box>
         </Box>
       </Box>
-      <Box className="relative mt-5">
+      <Box className="relative mt-5  rounded-md shadow-chart p-2">
         <TableProduct
           list={category?.data}
           dataField={dataCategoryField}

@@ -11,22 +11,21 @@ import { ModalDetail, NavigateHeader, TableProduct } from "../../../components";
 import * as apis from "../../../api";
 import { dataProductField } from "../../../constants/dataField";
 import route from "../../../constants/route";
+import { modalSliceAction } from "../../../slice/modalSlice";
 
 const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [rowData, setRowData] = useState(null);
-  const [isShowModalDetail, setIsShowModelDetail] = useState(false);
+  const { isOpen, data } = useSelector((state) => state.modal);
 
   const routes = [{ name: "Dashboard", to: route.PUBLIC }];
 
   const openModal = (row) => {
-    setIsShowModelDetail(true);
-    setRowData(row);
+    dispatch(modalSliceAction.openModal(row));
   };
 
   const closeModal = () => {
-    setIsShowModelDetail(false);
+    dispatch(modalSliceAction.closeModal());
   };
 
   const { token } = useSelector((state) => state.auth.login.currentUser.data);
@@ -40,10 +39,13 @@ const Product = () => {
   };
 
   useEffect(() => {
-    apis.getListProducts(token, dispatch, page, size);
     apis.getCategory(dispatch);
     apis.getDiscount(dispatch);
-  }, [token, page, size]);
+  }, []);
+
+  useEffect(() => {
+    apis.getListProducts(token, dispatch, page, size);
+  }, []);
 
   const handleChangePage = (e, page) => {
     apis.loadMoreProduct(token, dispatch, page, size);
@@ -94,7 +96,7 @@ const Product = () => {
             </Box>
           </Box>
         </Box>
-        <div className="relative mt-5">
+        <div className="relative mt-5  shadow-chart p-2">
           {list && (
             <TableProduct
               dataField={dataProductField}
@@ -113,9 +115,9 @@ const Product = () => {
         </div>
       </div>
       <ModalDetail
-        isShow={isShowModalDetail}
+        isShow={isOpen}
         handleClose={closeModal}
-        row={rowData}
+        row={data}
         handleGetDetail={handleGetProductDetail}
       />
     </div>

@@ -1,13 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Box, Button, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { Grid } from 'ag-grid-community';
-import moment from 'moment';
-import SlideProduct from '../SlideProduct/SlideProduct';
+import React from "react";
+import { motion } from "framer-motion";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Box, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Grid } from "ag-grid-community";
+import moment from "moment";
+import SlideProduct from "../SlideProduct/SlideProduct";
+import { useSelector } from "react-redux";
 
 function ModalDetail({
   isShow,
@@ -35,10 +36,7 @@ function ModalDetail({
             <span className="text-2xl font-normal">Show</span>
           </div>
           <div className="flex gap-4">
-            <Button
-              component="div"
-              onClick={() => handleGetDetail(row?.id)}
-            >
+            <Button component="div" onClick={() => handleGetDetail(row?.id)}>
               <motion.button
                 whileHover={{
                   scale: 1.1,
@@ -98,7 +96,10 @@ function ModalDetail({
                   Price
                 </span>
                 <Typography className="text-sm font-normal text-[#212539]">
-                  {row?.price}
+                  {new Intl.NumberFormat("it-IT", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(row?.price)}
                 </Typography>
               </span>
             )}
@@ -110,7 +111,7 @@ function ModalDetail({
                 <Typography className="text-sm font-normal text-[#212539]">
                   {row?.ProductInventory?.quantity
                     ? row?.ProductInventory?.quantity
-                    : 'Not update'}
+                    : "Not update"}
                 </Typography>
               </span>
             )}
@@ -120,7 +121,7 @@ function ModalDetail({
                 Create
               </span>
               <Typography className="text-sm font-normal text-[#212539]">
-                {moment(row?.createdAt).format('LLL')}
+                {moment(row?.createdAt).format("LLL")}
               </Typography>
             </span>
 
@@ -129,7 +130,7 @@ function ModalDetail({
                 Update
               </span>
               <Typography className="text-sm font-normal text-[#212539]">
-                {moment(row?.updatedAt).format('LLL')}
+                {moment(row?.updatedAt).format("LLL")}
               </Typography>
             </span>
             {!isCategory && (
@@ -138,7 +139,7 @@ function ModalDetail({
                   Discount
                 </span>
                 <Typography className="text-sm font-normal text-[#212539]">
-                  {row?.Discount?.name ? row?.Discount?.name : 'Not update'}
+                  {row?.Discount?.name ? row?.Discount?.name : "Not update"}
                 </Typography>
               </span>
             )}

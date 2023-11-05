@@ -15,4 +15,12 @@ export {
 } from "./category";
 export { getDiscount } from "./discount";
 
-export { getLineChart, getPieChartCategory } from "./chartData";
+export {
+  getLineChart,
+  getPieChartCategory,
+  getSoldMostProduct,
+  getBiggestBuyer,
+} from "./chartData";
+
+export { getAllCart } from "./cart";
+export { getAllOrder, loadMoreOrder } from "./order";

@@ -1,35 +1,67 @@
-import React from "react";
-import { BottomNavigation, BottomNavigationAction, Box, List } from "@mui/material";
-import CategoryIcon from "@mui/icons-material/Category";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import RedeemIcon from "@mui/icons-material/Redeem";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import HomeIcon from "@mui/icons-material/Home";
+import React, { useState } from "react";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  List,
+} from "@mui/material";
+import {
+  AccountCircle,
+  Home,
+  LocalShipping,
+  Redeem,
+  ShoppingCart,
+  Category,
+  Discount,
+} from "@mui/icons-material";
 import ListItemLink from "./ListItemLink";
 
 const nav = [
-  { text: "Home", link: "/", icon: <HomeIcon /> },
-  { text: "Product", link: "/product", icon: <RedeemIcon /> },
-  { text: "Category", link: "/category", icon: <CategoryIcon /> },
-  { text: "Cart", link: "/cart", icon: <ShoppingCartIcon /> },
-  { text: "Order", link: "/order", icon: <LocalShippingIcon /> },
+  {
+    text: "Home",
+    link: "/dashboard",
+    icon: <Home className="text-[#b1b6be]" />,
+  },
+  {
+    text: "Product",
+    link: "/product",
+    icon: <Redeem className="text-[#b1b6be]" />,
+  },
+  {
+    text: "Category",
+    link: "/category",
+    icon: <Category className="text-[#b1b6be]" />,
+  },
+  {
+    text: "Cart",
+    link: "/cart",
+    icon: <ShoppingCart className="text-[#b1b6be]" />,
+  },
+  {
+    text: "Order",
+    link: "/order",
+    icon: <LocalShipping className="text-[#b1b6be]" />,
+  },
+  {
+    text: "Account",
+    link: "/account",
+    icon: <AccountCircle className="text-[#b1b6be]" />,
+  },
+  {
+    text: "Discount",
+    link: "/discount",
+    icon: <Discount className="text-[#b1b6be]" />,
+  },
 ];
 
 function Navigate(props) {
-  const [value, setValue] = React.useState("recents");
+  const [value, setValue] = useState("recents");
   const handleChange = (event) => {
     setValue(newValue);
   };
   return (
     <>
-      <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        sx={{
-          bgcolor: "background.paper",
-        }}
-        className="hidden md:block"
-      >
+      <List component="ul" className="hidden md:block w-full !px-2 ">
         {nav.map((item) => (
           <ListItemLink
             to={item.link}
@@ -46,6 +78,7 @@ function Navigate(props) {
               label={item.text}
               value={item.link}
               icon={item.icon}
+              key={item.link}
             />
           ))}
         </BottomNavigation>

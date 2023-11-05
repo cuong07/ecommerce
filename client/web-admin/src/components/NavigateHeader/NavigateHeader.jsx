@@ -7,7 +7,7 @@ const NavigateHeader = ({ entry, routes }) => {
     <div role="presentation">
       <Breadcrumbs maxItems={2} aria-label="breadcrumb">
         {routes.map((item) => (
-          <Link underline="hover" color="inherit" href={item.to}>
+          <Link key={item.to} underline="hover" color="inherit" href={item.to}>
             {item.name}
           </Link>
         ))}

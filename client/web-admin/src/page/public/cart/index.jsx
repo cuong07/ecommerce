@@ -1,10 +1,10 @@
 import React from "react";
 import Layout from "../../Layout";
-import Home from "./Home";
+import Cart from "./Cart";
 
 const index = () => (
   <Layout>
-    <Home />
+    <Cart />
   </Layout>
 );
 

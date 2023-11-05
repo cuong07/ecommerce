@@ -1,11 +1,11 @@
-import React from 'react';
-import Layout from '../../Layout';
-import Signup from './Signup';
+import React from "react";
+import LayoutEmpty from "../../LayoutEmpty";
+import Signup from "./Signup";
 
 const index = () => (
-  <Layout hiddenHeader hiddenFooter>
+  <LayoutEmpty>
     <Signup />
-  </Layout>
+  </LayoutEmpty>
 );
 
 export default index;
