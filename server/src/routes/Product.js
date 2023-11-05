@@ -28,7 +28,6 @@ router.delete(
 );
 
 router.get("/product", auth.verifyToken, ProductControllers.getProduct);
-
 router.get("/search", auth.verifyToken, ProductControllers.findProductByName);
 router.get(
   "/product/category",

@@ -1,5 +1,7 @@
 const CartItem = require("../models/CartItem");
 const Product = require("../models/Product");
+const ProductCategory = require("../models/ProductCategory");
+const ProductInventory = require("../models/ProductInventory");
 const ShoppingSession = require("../models/ShoppingSession");
 const User = require("../models/User");
 
@@ -161,6 +163,69 @@ exports.getShoppingSession = async (req, res) => {
       data: { ...rows },
       totalCount: count,
       success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      message: error.message,
+      err: error,
+    });
+  }
+};
+
+exports.getAllShoppingSessions = async (req, res) => {
+  const { page, size } = req.params;
+  const currentPage = parseInt(page) || 1;
+  const pageSize = parseInt(size) || 10;
+  try {
+    const offset = (currentPage - 1) * pageSize;
+    const { count, rows } = await ShoppingSession.findAndCountAll({
+      include: [
+        {
+          model: User,
+          required: true,
+          attributes: [
+            "id",
+            "admin",
+            "first_name",
+            "last_name",
+            "email",
+            "telephone",
+            "image",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
+        {
+          model: CartItem,
+          required: true,
+          include: [
+            {
+              model: Product,
+              include: [
+                {
+                  model: ProductInventory,
+                },
+                {
+                  model: ProductCategory,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      limit: pageSize,
+      offset: offset,
+    });
+
+    const totalPages = Math.ceil(count / pageSize);
+    res.status(200).json({
+      message: "Get cart item successfully",
+      data: [...rows],
+      totalCount: count,
+      success: true,
+      totalPages,
+      currentPage,
     });
   } catch (error) {
     console.log(error.message);

@@ -19,4 +19,10 @@ router.get(
   auth.verifyTokenAndAdminAuth,
   DatasetController.getMostSoldProduct
 );
+
+router.get(
+  "/dataset/biggest-buyer",
+  auth.verifyTokenAndAdminAuth,
+  DatasetController.getBiggestBuyers
+);
 module.exports = router;

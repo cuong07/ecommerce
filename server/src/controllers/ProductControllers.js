@@ -395,17 +395,14 @@ exports.getProduct = async (req, res) => {
       include: [
         {
           model: ProductCategory,
-          required: true,
           attributes: ["name", "id", "description"],
         },
         {
           model: ProductInventory,
-          required: true,
           attributes: ["id", "quantity"],
         },
         {
           model: Discount,
-          required: true,
           attributes: [
             "id",
             "discount_percent",
